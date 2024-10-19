@@ -28,15 +28,6 @@ async def trivia(ctx):
     await ctx.send(trivia)
 
 
-@bot.command(name="help", description="Provides a list of commands")
-async def help(ctx):
-    help = """
-    !icebreaker - Provides a random icebreaker
-    !trivia - Provides a random trivia question
-    """
-    await ctx.send(help)
-
-
 @bot.event
 async def on_ready():
     print(f"{bot.user} has connected to Discord!")

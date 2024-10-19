@@ -7,11 +7,11 @@ import random
 
 load_dotenv()
 
+
 class Chatbot:
     api_key = os.getenv("GOOGLE_API_KEY")
 
-
-    icebreaker_prompt = f'''
+    icebreaker_prompt = f"""
     You're a Discord bot generating one conversation starter. Be engaging, appropriate, and diverse in topics. follow these guidelines:
 
     1. Create one conversation starter (1-2 sentences).
@@ -25,9 +25,9 @@ class Chatbot:
     - "Would you rather be invisible or be able to fly?"
 
     Keep it fun, creative, and thought-provoking!
-    '''
+    """
 
-    trivia_prompt = f'''You're a Discord bot sharing trivia questions or fun facts. Follow these guidelines:
+    trivia_prompt = f"""You're a Discord bot sharing trivia questions or fun facts. Follow these guidelines:
 
     1. Provide either one trivia question or one fun fact.
     2. For trivia: Include the question and the correct answer.
@@ -40,14 +40,19 @@ class Chatbot:
     Fun Fact: f"A group of flamingos is called a '{random.choice(['flamboyance', 'colony', 'stand', 'pat'])}'"
 
     Be informative, surprising, and fun!
-    '''
-    def __init__(self):
-        self.model = GoogleGenerativeAI(model="models/gemini-1.5-pro", google_api_key=self.api_key)
+    """
 
+    def __init__(self):
+        self.model = GoogleGenerativeAI(
+            model="models/gemini-1.0-pro", google_api_key=self.api_key
+        )
 
     def icebreaker(self):
         try:
-            response = self.model.invoke([HumanMessage(content=self.icebreaker_prompt)])
+            response = self.model.invoke(
+                [HumanMessage(content=self.icebreaker_prompt)],
+                seed=random.randint(0, 1000000),
+            )
             return response
         except Exception as e:
             print(e)
@@ -55,7 +60,10 @@ class Chatbot:
 
     def trivia(self):
         try:
-            response = self.model.invoke([HumanMessage(content=self.trivia_prompt)])
+            response = self.model.invoke(
+                [HumanMessage(content=self.trivia_prompt)],
+                seed=random.randint(0, 1000000),
+            )
             return response
         except Exception as e:
             print(e)

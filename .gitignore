@@ -1,5 +1,6 @@
 /.env
-lib/**
-lib64/**
-bin/**
-__pycache__/**
+lib/
+lib64/
+bin/
+__pycache__/
+include/

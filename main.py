@@ -14,14 +14,14 @@ contexts = discord.AppCommandContext.all()
 bot = commands.Bot(command_prefix="!", intents=intents, contexts=contexts)
 
 
-@bot.command(name="icebreakerTest", description="Provides a random icebreaker")
+@bot.command(name="icebreaker", description="Provides a random icebreaker")
 @commands.cooldown(15, 60)
 async def icebreaker(ctx):
     icebreaker = chatbot.icebreaker()
     await ctx.send(icebreaker)
 
 
-@bot.command(name="triviaTest", description="Provides a random trivia question")
+@bot.command(name="trivia", description="Provides a random trivia question")
 @commands.cooldown(15, 60)
 async def trivia(ctx):
     trivia = chatbot.trivia()

@@ -34,6 +34,7 @@ class Chatbot:
     3. For fun facts: State an interesting, lesser-known fact.
     4. Cover diverse topics: science, history, pop culture, nature, etc.
     5. Keep it family-friendly and engaging.
+    6. If it's a trivia question, make the answer a spoiler by wrapping it with || on either side.
 
     Examples:
     Trivia: "What's the largest planet in our solar system? (Answer: Jupiter)"

@@ -17,12 +17,10 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          rm -rf ${{ secrets.WORK_DIR }} &&
-          git clone ${{ secrets.REPO_URL }} ${{ secrets.WORK_DIR }} &&
           cd ${{ secrets.WORK_DIR }} &&
+          git pull &&
           echo "${{ secrets.DOTENV}}" > .env &&
 
           #python
-          python3 -m venv ./ &&
           source ./bin/activate &&
           pip install -r requirements.txt

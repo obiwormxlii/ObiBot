@@ -25,13 +25,13 @@ jobs:
       run: rm -rf ${{ secrets.WORK_DIR }}
 
     - name: clone repo
-      run: git clone ${{ REPO_URL }} ${{ WORK_DIR }} && cd ${{ WORK_DIR }}
+      run: git clone ${{ secrets.REPO_URL }} ${{ secrets.WORK_DIR }} && cd ${{ secrets.WORK_DIR }}
 
     - name: set up venv
       run: python3 -m venv ./ && source ./bin/activate && pip install -r requirements.txt
 
     - name: add environment variables
-      run: echo '${{ secrets.DOTENV }}' > .env
+      run: echo ${{ secrets.DOTENV }} > .env
 
     - name: exit
       run: exit

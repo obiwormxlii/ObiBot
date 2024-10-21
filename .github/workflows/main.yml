@@ -10,31 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: install ssh keys
-      # check this thread to understand why its needed:
-      # https://stackoverflow.com/a/70447517
-      run: |
-        install -m 600 -D /dev/null ~/.ssh/id_rsa
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
-        
-    - name: connect
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
-
-    - name: remove old files
-      run: rm -rf ${{ secrets.WORK_DIR }}
-
-    - name: clone repo
-      run: git clone ${{ secrets.REPO_URL }} ${{ secrets.WORK_DIR }} && cd ${{ secrets.WORK_DIR }} && git pull ${{secrets.MAIN_BRANCH}}
-
-    - name: set up venv
-      run: python3 -m venv ./ && source ./bin/activate && pip install -r requirements.txt
-
-    - name: add environment variables
-      run: echo ${{ secrets.DOTENV }} > .env
-
-    - name: exit
-      run: exit
-      
-    - name: cleanup
-      run: rm -rf ~/.ssh
+    - name: ssh install
+      uses: appleboy/ssh-action@v1.1.0
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          rm -rf ${{ secrets.WORK_DIR }} &&
+          git clone ${{ secrets.REPO_URL }} ${{ secrets.WORK_DIR }} &&
+          cd ${{ secrets.WORK_DIR }} &&
+          echo ${{ secrets.DOTENV}} > .env

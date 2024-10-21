@@ -17,10 +17,8 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
+          sudo systemctl stop obibot.service &&
           cd ${{ secrets.WORK_DIR }} &&
           git pull &&
           echo "${{ secrets.DOTENV}}" > .env &&
-
-          #python
-          source ./bin/activate &&
-          pip install -r requirements.txt
+          sudo systemctl start obibot.service

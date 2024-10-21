@@ -18,7 +18,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           rm -rf ${{ secrets.WORK_DIR }} &&
-          echo ${{ secrets.REPO_URL }} &&
           git clone ${{ secrets.REPO_URL }} ${{ secrets.WORK_DIR }} &&
           cd ${{ secrets.WORK_DIR }} &&
-          echo ${{ secrets.DOTENV}} > .env
+          echo "${{ secrets.DOTENV}}" > .env

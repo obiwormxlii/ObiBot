@@ -20,4 +20,9 @@ jobs:
           rm -rf ${{ secrets.WORK_DIR }} &&
           git clone ${{ secrets.REPO_URL }} ${{ secrets.WORK_DIR }} &&
           cd ${{ secrets.WORK_DIR }} &&
-          echo "${{ secrets.DOTENV}}" > .env
+          echo "${{ secrets.DOTENV}}" > .env &&
+
+          #python
+          python3 -m venv ./ &&
+          source ./bin/activate &&
+          pip install -r requirements.txt
